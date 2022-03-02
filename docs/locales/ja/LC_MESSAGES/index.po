@@ -1,0 +1,66 @@
+# -*- coding: utf-8 -*-
+#
+# K2hash Python Driver
+#
+# Copyright (c) 2022 Yahoo Japan Corporation
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+# AUTHOR:   Hirotaka Wakabayashi
+# CREATE:   Tue Feb 08 2022
+# REVISION:
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: k2hash \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-02-07 06:11+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../index.rst:9
+msgid "Contents:"
+msgstr "内容"
+
+#: ../../index.rst:7
+msgid "Welcome to k2hash's documentation!"
+msgstr "k2hash for Pythonのドキュメントへようこそ！"
+
+#: ../../index.rst:16
+msgid "Indices and tables"
+msgstr "一覧"
+
+#: ../../index.rst:18
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../../index.rst:19
+msgid ":ref:`modindex`"
+msgstr ""
+
+#: ../../index.rst:20
+msgid ":ref:`search`"
+msgstr ""
+
