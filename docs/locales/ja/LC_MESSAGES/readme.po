@@ -62,7 +62,6 @@ msgid "Firstly you must install the k2hash shared library::"
 msgstr "最初にk2hashの共有ライブラリをインストールしなければなりません。"
 
 #: ../../../README.rst:23
-#, fuzzy
 msgid "Then, let's install k2hash using pip::"
 msgstr "pipコマンドを使って、k2hashのPythonb版をインストールしましょう。"
 
