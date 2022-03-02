@@ -1,32 +1,16 @@
 # -*- coding: utf-8 -*-
 #
-# K2hash Python Driver
+# K2hash Python Driver under MIT License
+#
 # Copyright (c) 2022 Yahoo Japan Corporation
-# Permission is hereby granted, free of charge, to any person obtaining a
-# copy
-# of this software and associated documentation files (the "Software"), to
-# deal
-# in the Software without restriction, including without limitation the
-# rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-# The above copyright notice and this permission notice shall be included in
-# all
-# copies or substantial portions of the Software.
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE
-# SOFTWARE.
+#
+# For the full copyright and license information, please view
+# the license file that was distributed with this source code.
+#
 # AUTHOR:   Hirotaka Wakabayashi
 # CREATE:   Tue Feb 08 2022
 # REVISION:
+#
 #, fuzzy
 msgid ""
 msgstr ""
@@ -34,8 +18,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-02 16:44+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: FULL NAME <antpickax-support@mail.yahoo.co.jp>\n"
+"Language-Team: LANGUAGE <antpickax-support@mail.yahoo.co.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -62,7 +46,6 @@ msgid "Firstly you must install the k2hash shared library::"
 msgstr "最初にk2hashの共有ライブラリをインストールしなければなりません。"
 
 #: ../../../README.rst:23
-#, fuzzy
 msgid "Then, let's install k2hash using pip::"
 msgstr "pipコマンドを使って、k2hashのPythonb版をインストールしましょう。"
 
@@ -94,15 +77,15 @@ msgstr "k2hashのPython版以外のコンポーネントのドキュメントは
 
 #: ../../../README.rst:55
 msgid "`Document top page`_"
-msgstr "ドキュメントトップ"
+msgstr "`ドキュメントトップ`_"
 
 #: ../../../README.rst:57
 msgid "`About K2HASH`_"
-msgstr "K2HASHについて"
+msgstr "`K2HASHについて`_"
 
 #: ../../../README.rst:59
 msgid "`About AntPickax`_"
-msgstr "AntPickaxについて"
+msgstr "`AntPickaxについて`_"
 
 #: ../../../README.rst:67
 msgid "Packages"
@@ -114,7 +97,7 @@ msgstr "この他のコンポーネントのパッケージはこちらです。
 
 #: ../../../README.rst:71
 msgid "`k2hash(python packages)`_"
-msgstr "k2hashのPython版パッケージ"
+msgstr ""
 
 #: ../../../README.rst:77
 msgid "License"
@@ -135,93 +118,4 @@ msgid ""
 msgstr ""
 "k2hash_pythonは、 AntPickax_ によるプロジェクトの一つです。 AntPickax_ "
 "は、ヤフー株式会社のオープンソース開発チームの一つです。"
-
-#~ msgid ""
-#~ "[![Actions "
-#~ "Status](https://github.com/yahoojapan/k2hash_python/workflows/CI/badge.svg)](https://github.com/yahoojapan/k2hash_python/actions)"
-#~ " [![GitHub license](https://img.shields.io/badge/license-"
-#~ "MIT-"
-#~ "blue.svg)](https://raw.githubusercontent.com/yahoojapan/k2hash_nodejs/master/LICENSE)"
-#~ msgstr ""
-
-#~ msgid "### 概要"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "k2hash_python is an official python "
-#~ "driver for [k2hash](https://k2hash.antpick.ax/)."
-#~ msgstr ""
-
-#~ msgid "K2HASH - K2Hash by Yahoo! JAPAN"
-#~ msgstr ""
-
-#~ msgid "### Install"
-#~ msgstr ""
-
-#~ msgid "### Usage"
-#~ msgstr ""
-
-#~ msgid "### Development"
-#~ msgstr ""
-
-#~ msgid "### Documents"
-#~ msgstr ""
-
-#~ msgid "[Document top page](https://k2hash-python.readthedocs.io/)"
-#~ msgstr ""
-
-#~ msgid "[About K2HASH](https://k2hash.antpick.ax/)"
-#~ msgstr ""
-
-#~ msgid "[About AntPickax](https://antpick.ax/)"
-#~ msgstr ""
-
-#~ msgid "### Packages"
-#~ msgstr ""
-
-#~ msgid "[PyPI Repository](https://pypi.org/project/k2hash/)"
-#~ msgstr ""
-
-#~ msgid "### License"
-#~ msgstr ""
-
-#~ msgid "## AntPickax"
-#~ msgstr ""
-
-#~ msgid "[AntPickax](https://antpick.ax/) is"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "an open source team in [Yahoo "
-#~ "Japan Corporation](https://about.yahoo.co.jp/info/en/company/)."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "a product family of open source "
-#~ "software developed by "
-#~ "[AntPickax](https://antpick.ax/)."
-#~ msgstr ""
-
-#~ msgid "Let's install k2hash using pip. ``` pip install k2hash ```"
-#~ msgstr ""
-
-#~ msgid "Try to set a key and get it. ``` import k2hash"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "k = k2hash.K2hash('test.k2h') k.set('hello', "
-#~ "'world') v = k.get('hello') print(v)    "
-#~ "// world ```"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Clone this repository and go into "
-#~ "the directory, then run the following"
-#~ " command. ``` $ python3 -m pip "
-#~ "install --upgrade build $ python3 -m "
-#~ "build ```"
-#~ msgstr ""
-
-#~ msgid "概要"
-#~ msgstr ""
 
