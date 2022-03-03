@@ -1,3 +1,16 @@
+# -*- coding: utf-8 -*-
+#
+# K2hash Python Driver under MIT License
+#
+# Copyright (c) 2022 Yahoo Japan Corporation
+#
+# For the full copyright and license information, please view
+# the license file that was distributed with this source code.
+#
+# AUTHOR:   Hirotaka Wakabayashi
+# CREATE:   Tue Feb 08 2022
+# REVISION:
+#
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 

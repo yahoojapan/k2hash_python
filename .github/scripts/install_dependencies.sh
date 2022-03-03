@@ -1,4 +1,16 @@
 #!/bin/sh
+#
+# K2hash Python Driver under MIT License
+#
+# Copyright (c) 2022 Yahoo Japan Corporation
+#
+# For the full copyright and license information, please view
+# the license file that was distributed with this source code.
+#
+# AUTHOR:   Hirotaka Wakabayashi
+# CREATE:   Tue Feb 08 2022
+# REVISION:
+#
 
 echo $(basename $0)
 
@@ -40,3 +52,11 @@ esac
 
 exit $?
 
+#
+# Local variables:
+# tab-width: 4
+# c-basic-offset: 4
+# End:
+# vim600: expandtab sw=4 ts=4 fdm=marker
+# vim<600: expandtab sw=4 ts=4
+#

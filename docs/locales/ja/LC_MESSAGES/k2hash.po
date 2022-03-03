@@ -1,26 +1,11 @@
 # -*- coding: utf-8 -*-
 #
-# K2hash Python Driver
+# K2hash Python Driver under MIT License
 #
 # Copyright (c) 2022 Yahoo Japan Corporation
 #
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# For the full copyright and license information, please view
+# the license file that was distributed with this source code.
 #
 # AUTHOR:   Hirotaka Wakabayashi
 # CREATE:   Tue Feb 08 2022
@@ -33,8 +18,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-01 19:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: Hirotaka Wakabayashi <hiwakaba@yahoo-corp.jp>\n"
+"Language-Team: Antpickax <antpickax-support@mail.yahoo.co.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -42,18 +27,18 @@ msgstr ""
 
 #: ../../k2hash.rst:2 k2hash:1 of
 msgid "k2hash package"
-msgstr ""
+msgstr "k2hashパッケージ"
 
 #: ../../k2hash.rst:5
 msgid "Submodules"
-msgstr ""
+msgstr "サブモジュール"
 
 #: ../../k2hash.rst:8
-msgid "k2hash.k2hash module"
+msgid "k2hash.k2hash モジュール"
 msgstr ""
 
 #: k2hash.k2hash:1 k2hash.keyqueue:1 k2hash.queue:1 of
-msgid "K2hash Python Driver"
+msgid "K2hash Python Driver under MIT License"
 msgstr ""
 
 #: k2hash.k2hash.K2hash:1 k2hash.k2hash.K2hashIterator:1
@@ -65,157 +50,157 @@ msgstr ""
 msgid ""
 "K2hash class provides methods to handle key/value pairs in k2hash hash "
 "database."
-msgstr ""
+msgstr "K2hashクラスはkey/valueペアを操作するメソッドを提供します。"
 
 #: k2hash.k2hash.K2hash.add_attribute_plugin_lib:1 of
 msgid "Adds a shared library that handles an attribute"
-msgstr ""
+msgstr "属性操作用共有ライブラリを追加します。"
 
 #: k2hash.k2hash.K2hash.add_decryption_password:1 of
 msgid "Adds a passphrase to decrypt a value."
-msgstr ""
+msgstr "復号化用パスフレーズを追加します。"
 
 #: k2hash.k2hash.K2hash.add_subkey:1 of
 msgid "Adds subkeys to a key/value pair."
-msgstr ""
+msgstr "サブキーを追加します。"
 
 #: k2hash.k2hash.K2hash.begin_tx:1 of
 msgid "Starts a transaction logging."
-msgstr ""
+msgstr "トランザクションを開始します。"
 
 #: k2hash.k2hash.K2hash.close:1 of
 msgid "Closes a k2h file."
-msgstr ""
+msgstr "ファイルを閉じます。"
 
 #: k2hash.k2hash.K2hash.create:1 k2hash.k2hash.K2hash.set_log_level:1 of
 msgid "Creates a k2hash file."
-msgstr ""
+msgstr "ファイルを作ります。"
 
 #: k2hash.k2hash.K2hash.dump_to_file:1 of
 msgid "Dumps data to a file."
-msgstr ""
+msgstr "key/valueペアをファイルに出力します。"
 
 #: k2hash.k2hash.K2hash.enable_encryption:1 of
 msgid "Enables a feature to encrypt a value."
-msgstr ""
+msgstr "暗号化機能を有効にします。"
 
 #: k2hash.k2hash.K2hash.enable_history:1 of
 msgid "Enables a feature to record a key modification history."
-msgstr ""
+msgstr "履歴保存機能を有効にします。"
 
 #: k2hash.k2hash.K2hash.enable_mtime:1 of
 msgid "Enables a feature to record value modification time."
-msgstr ""
+msgstr "変更時刻記録機能を有効にします。"
 
 #: k2hash.k2hash.K2hash.get:1 of
 msgid "Gets the value"
-msgstr ""
+msgstr "値を取得します。"
 
 #: k2hash.k2hash.K2hash.get_attributes:1 of
 msgid "Gets attributes of a key."
-msgstr ""
+msgstr "属性を取得します。"
 
 #: k2hash.k2hash.K2hash.get_iterator:1 of
 msgid "Returns the k2hash iterator"
-msgstr ""
+msgstr "キーのiteratorを取得します。"
 
 #: k2hash.k2hash.K2hash.get_subkeys:1 of
 msgid "Gets keys of subkeys of a key."
-msgstr ""
+msgstr "サブキーを取得します。"
 
 #: k2hash.k2hash.K2hash.get_tx_file_fd:1 of
 msgid "Gets a transaction log file descriptor."
-msgstr ""
+msgstr "トランザクションログファイル記述子を取得します。"
 
 #: k2hash.k2hash.K2hash.get_tx_pool_size:1 of
 msgid "Gets the number of transaction thread pool."
-msgstr ""
+msgstr "トランザクション用スレッド数を取得します。"
 
 #: k2hash.K2hash.handle:1 k2hash.KeyQueue.handle:1 k2hash.Queue.handle:1
 #: k2hash.k2hash.K2hash.handle:1 k2hash.keyqueue.KeyQueue.handle:1
 #: k2hash.queue.Queue.handle:1 of
 msgid "Returns a Queue handle."
-msgstr ""
+msgstr "キューハンドルを返します。"
 
 #: k2hash.K2hash.libc:1 k2hash.k2hash.K2hash.libc:1 of
 msgid "returns libc handle"
-msgstr ""
+msgstr "libcライブラリハンドルを返します。"
 
 #: k2hash.K2hash.libk2hash:1 k2hash.k2hash.K2hash.libk2hash:1 of
 msgid "returns libk2hash handle"
-msgstr ""
+msgstr "libk2hashライブラリハンドルを返します。"
 
 #: k2hash.k2hash.K2hash.load_from_file:1 of
 msgid "Loads data from a file."
-msgstr ""
+msgstr "ファイルからデータをロードします。"
 
 #: k2hash.k2hash.K2hash.print_attribute_plugins:1 of
 msgid "Prints attribute plugins to stderr."
-msgstr ""
+msgstr "属性用プラグインを出力します。"
 
 #: k2hash.k2hash.K2hash.print_attributes:1 of
 msgid "Prints attributes to stderr."
-msgstr ""
+msgstr "属性情報を出力します。"
 
 #: k2hash.k2hash.K2hash.print_data_stats:1 of
 msgid "Prints data statistics."
-msgstr ""
+msgstr "データ統計情報を出力します。"
 
 #: k2hash.k2hash.K2hash.print_table_stats:1 of
 msgid "Prints k2hash key table information."
-msgstr ""
+msgstr "キーテーブル情報を出力します。"
 
 #: k2hash.k2hash.K2hash.remove:1 of
 msgid "Removes a key."
-msgstr ""
+msgstr "キーを削除します。"
 
 #: k2hash.k2hash.K2hash.remove_subkeys:1 of
 msgid "Removes subkeys from the key."
-msgstr ""
+msgstr "サブキーを削除します。
 
 #: k2hash.k2hash.K2hash.rename:1 of
 msgid "Renames a key with a new key."
-msgstr ""
+msgstr "キーの名前を変更します。"
 
 #: k2hash.k2hash.K2hash.set:1 of
 msgid "Sets a key/value pair"
-msgstr ""
+msgstr "key/valueを保存します。"
 
 #: k2hash.k2hash.K2hash.set_attribute:1 of
 msgid "Sets an attribute of a key."
-msgstr ""
+msgstr "属性をセットします。"
 
 #: k2hash.k2hash.K2hash.set_default_encryption_password:1 of
 msgid "Sets the default encryption passphrase."
-msgstr ""
+msgstr "暗号化パスワードをセットします。"
 
 #: k2hash.k2hash.K2hash.set_encryption_password_file:1 of
 msgid "Sets the data encryption password file."
-msgstr ""
+msgstr "暗号化パスワードファイルをセットします。"
 
 #: k2hash.k2hash.K2hash.set_expiration_duration:1 of
 msgid "Sets the duration to expire a value."
-msgstr ""
+msgstr "データの有効期限をセットします。"
 
 #: k2hash.k2hash.K2hash.set_subkeys:1 of
 msgid "Sets subkeys."
-msgstr ""
+msgstr "サブキーをセットします。"
 
 #: k2hash.k2hash.K2hash.set_tx_pool_size:1 of
 msgid "Sets the number of transaction thread pool."
-msgstr ""
+msgstr "トランザクション処理用スレッド数をセットします。"
 
 #: k2hash.k2hash.K2hash.stop_tx:1 of
 msgid "Stops a transaction logging."
-msgstr ""
+msgstr "トランザクションを終了します。"
 
 #: k2hash.k2hash.K2hash.version:1 of
 msgid "Prints version information."
-msgstr ""
+msgstr "バージョンを表示します。"
 
 #: k2hash.k2hash.K2hashIterator:1 of
 msgid "implements iterator of k2hash"
-msgstr ""
+msgstr "k2hashのiteratorを実装しています。"
 
 #: ../../k2hash.rst:16
 msgid "k2hash.keyqueue module"
@@ -225,40 +210,40 @@ msgstr ""
 msgid ""
 "KeyQueue class provides methods to handle key/value pairs in k2hash hash "
 "database."
-msgstr ""
+msgstr "KeyQueueクラスはkey/valueキュー操作メソッドを提供します"
 
 #: k2hash.keyqueue.KeyQueue.clear:1 k2hash.queue.Queue.clear:1 of
 msgid "Removes all of the elements from this collection (optional operation)."
-msgstr ""
+msgstr "全ての要素を削除します。"
 
 #: k2hash.keyqueue.KeyQueue.close:1 k2hash.queue.Queue.close:1 of
 msgid "Free QueueHandle"
-msgstr ""
+msgstr "キュー処理ハンドルを解放します。"
 
 #: k2hash.keyqueue.KeyQueue.element:1 k2hash.keyqueue.KeyQueue.get:1
 #: k2hash.queue.Queue.element:1 k2hash.queue.Queue.get:1 of
 msgid "Finds and gets a object from the head of this queue."
-msgstr ""
+msgstr "キューの要素を取得します。"
 
 #: k2hash.keyqueue.KeyQueue.empty:1 k2hash.queue.Queue.empty:1 of
 msgid "Returns true if, and only if, queue size is 0."
-msgstr ""
+msgstr "キューが空ならば真を返します。"
 
 #: k2hash.keyqueue.KeyQueue.print:1 k2hash.queue.Queue.print:1 of
 msgid "Print the objects in this queue."
-msgstr ""
+msgstr "キューの要素を出力します。"
 
 #: k2hash.keyqueue.KeyQueue.put:1 k2hash.queue.Queue.put:1 of
 msgid "Inserts an element into the tail of this queue."
-msgstr ""
+msgstr "キューに要素を追加します。"
 
 #: k2hash.keyqueue.KeyQueue.qsize:1 k2hash.queue.Queue.qsize:1 of
 msgid "Returns the number of queue."
-msgstr ""
+msgstr "キューの数を返します。"
 
 #: k2hash.keyqueue.KeyQueue.remove:1 k2hash.queue.Queue.remove:1 of
 msgid "Removes objects from this queue."
-msgstr ""
+msgstr "キューから要素を削除します。"
 
 #: ../../k2hash.rst:24
 msgid "k2hash.queue module"
@@ -268,11 +253,11 @@ msgstr ""
 msgid ""
 "Queue class provides methods to handle key/value pairs in k2hash hash "
 "database."
-msgstr ""
+msgstr "Queueクラスは、キュー操作メソッドを提供します。"
 
 #: ../../k2hash.rst:32
 msgid "Module contents"
-msgstr ""
+msgstr "モジュール"
 
 #: k2hash.AttrPack:1 k2hash.KeyPack:1 of
 msgid "Bases: :py:class:`_ctypes.Structure`"
@@ -280,13 +265,13 @@ msgstr ""
 
 #: k2hash.AttrPack:1 of
 msgid "C Attr structure"
-msgstr ""
+msgstr "Attr構造体"
 
 #: ../../docstring k2hash.AttrPack.keylength:1 k2hash.AttrPack.pkey:1
 #: k2hash.AttrPack.pval:1 k2hash.AttrPack.vallength:1 k2hash.KeyPack.length:1
 #: k2hash.KeyPack.pkey:1 of
 msgid "Structure/Union member"
-msgstr ""
+msgstr "構造体のメンバー"
 
 #: k2hash.DumpLevel:1 k2hash.LogLevel:1 k2hash.OpenFlag:1 k2hash.TimeUnit:1 of
 msgid "Bases: :py:class:`enum.Enum`"
@@ -294,21 +279,21 @@ msgstr ""
 
 #: k2hash.DumpLevel:1 of
 msgid "k2hash file status information"
-msgstr ""
+msgstr "k2hashファイルの状態"
 
 #: k2hash.KeyPack:1 of
 msgid "C KeyPack structure"
-msgstr ""
+msgstr "KeyPack構造体"
 
 #: k2hash.LogLevel:1 of
 msgid "k2hash log level"
-msgstr ""
+msgstr "k2hashログレベル"
 
 #: k2hash.OpenFlag:1 of
 msgid "k2hash file open flags"
-msgstr ""
+msgstr "ファイルオープン用フラグ"
 
 #: k2hash.TimeUnit:1 of
 msgid "k2hash time units"
-msgstr ""
+msgstr "時間単位"
 

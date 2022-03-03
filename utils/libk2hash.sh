@@ -1,17 +1,15 @@
 #!/bin/sh
+# -*- coding: utf-8 -*-
 #
-# k2hash_go
+# K2hash Python Driver under MIT License
 #
-# Copyright 2018 Yahoo Japan Corporation.
-#
-# Go driver for k2hash that is a NoSQL Key Value Store(KVS) library.
-# For k2hash, see https://github.com/yahoojapan/k2hash for the details.
+# Copyright (c) 2022 Yahoo Japan Corporation
 #
 # For the full copyright and license information, please view
 # the license file that was distributed with this source code.
 #
 # AUTHOR:   Hirotaka Wakabayashi
-# CREATE:   Fri, 14 Sep 2018
+# CREATE:   Tue Feb 08 2022
 # REVISION:
 #
 
