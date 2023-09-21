@@ -11,26 +11,27 @@
 # CREATE:   Tue Feb 08 2022
 # REVISION:
 #
-import unittest
-import k2hash
 import logging
+import unittest
+
+import k2hash
+
 
 class TestK2hashPackage(unittest.TestCase):
-
     def test_get_library_handle(self):
         libk2hash = k2hash.get_library_handle()
         self.assertTrue(libk2hash)
         self.assertTrue(isinstance(libk2hash, dict))
-        self.assertTrue(libk2hash['c'])
-        self.assertTrue(libk2hash['k2hash'])
+        self.assertTrue(libk2hash["c"])
+        self.assertTrue(libk2hash["k2hash"])
 
     def test_set_log_level(self):
         k2hash.set_log_level(logging.INFO)
-        logger = logging.getLogger('k2hash')
-        self.assertEqual(logging.getLevelName(logger.level), 'INFO')
+        logger = logging.getLogger("k2hash")
+        self.assertEqual(logging.getLevelName(logger.level), "INFO")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
 
 #

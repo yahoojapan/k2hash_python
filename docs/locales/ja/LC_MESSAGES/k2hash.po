@@ -1,29 +1,25 @@
 # -*- coding: utf-8 -*-
 #
 # K2hash Python Driver under MIT License
-#
 # Copyright (c) 2022 Yahoo Japan Corporation
-#
 # For the full copyright and license information, please view
 # the license file that was distributed with this source code.
-#
 # AUTHOR:   Hirotaka Wakabayashi
 # CREATE:   Tue Feb 08 2022
 # REVISION:
-#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: k2hash \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-01 19:15+0900\n"
+"POT-Creation-Date: 2023-09-26 14:11+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Hirotaka Wakabayashi <hiwakaba@yahoo-corp.jp>\n"
 "Language-Team: Antpickax <antpickax-support@mail.yahoo.co.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.12.1\n"
 
 #: ../../k2hash.rst:2 k2hash:1 of
 msgid "k2hash package"
@@ -34,15 +30,15 @@ msgid "Submodules"
 msgstr "サブモジュール"
 
 #: ../../k2hash.rst:8
-msgid "k2hash.k2hash モジュール"
-msgstr ""
+msgid "k2hash.k2hash module"
+msgstr "k2hashモジュール"
 
 #: k2hash.k2hash:1 k2hash.keyqueue:1 k2hash.queue:1 of
 msgid "K2hash Python Driver under MIT License"
 msgstr ""
 
-#: k2hash.k2hash.K2hash:1 k2hash.k2hash.K2hashIterator:1
-#: k2hash.keyqueue.KeyQueue:1 k2hash.queue.Queue:1 of
+#: k2hash.basequeue.BaseQueue:1 k2hash.k2hash.K2hash:1
+#: k2hash.k2hash.K2hashIterator:1 of
 msgid "Bases: :py:class:`object`"
 msgstr ""
 
@@ -116,9 +112,8 @@ msgstr "トランザクションログファイル記述子を取得します。
 msgid "Gets the number of transaction thread pool."
 msgstr "トランザクション用スレッド数を取得します。"
 
-#: k2hash.K2hash.handle:1 k2hash.KeyQueue.handle:1 k2hash.Queue.handle:1
-#: k2hash.k2hash.K2hash.handle:1 k2hash.keyqueue.KeyQueue.handle:1
-#: k2hash.queue.Queue.handle:1 of
+#: k2hash.BaseQueue.handle:1 k2hash.K2hash.handle:1
+#: k2hash.k2hash.K2hash.handle:1 of
 msgid "Returns a Queue handle."
 msgstr "キューハンドルを返します。"
 
@@ -156,7 +151,7 @@ msgstr "キーを削除します。"
 
 #: k2hash.k2hash.K2hash.remove_subkeys:1 of
 msgid "Removes subkeys from the key."
-msgstr "サブキーを削除します。
+msgstr "サブキーを削除します"
 
 #: k2hash.k2hash.K2hash.rename:1 of
 msgid "Renames a key with a new key."
@@ -206,6 +201,10 @@ msgstr "k2hashのiteratorを実装しています。"
 msgid "k2hash.keyqueue module"
 msgstr ""
 
+#: k2hash.keyqueue.KeyQueue:1 k2hash.queue.Queue:1 of
+msgid "Bases: :py:class:`~k2hash.basequeue.BaseQueue`"
+msgstr ""
+
 #: k2hash.keyqueue.KeyQueue:1 of
 msgid ""
 "KeyQueue class provides methods to handle key/value pairs in k2hash hash "
@@ -247,7 +246,7 @@ msgstr "キューから要素を削除します。"
 
 #: ../../k2hash.rst:24
 msgid "k2hash.queue module"
-msgstr ""
+msgstr "k2hash.queue モジュール"
 
 #: k2hash.queue.Queue:1 of
 msgid ""
@@ -260,7 +259,7 @@ msgid "Module contents"
 msgstr "モジュール"
 
 #: k2hash.AttrPack:1 k2hash.KeyPack:1 of
-msgid "Bases: :py:class:`_ctypes.Structure`"
+msgid "Bases: :py:class:`~_ctypes.Structure`"
 msgstr ""
 
 #: k2hash.AttrPack:1 of
@@ -273,8 +272,15 @@ msgstr "Attr構造体"
 msgid "Structure/Union member"
 msgstr "構造体のメンバー"
 
+#: k2hash.basequeue.BaseQueue:1 of
+#, fuzzy
+msgid ""
+"Baseueue class provides methods to handle key/value pairs in k2hash hash "
+"database."
+msgstr "Queueクラスは、キュー操作メソッドを提供します。"
+
 #: k2hash.DumpLevel:1 k2hash.LogLevel:1 k2hash.OpenFlag:1 k2hash.TimeUnit:1 of
-msgid "Bases: :py:class:`enum.Enum`"
+msgid "Bases: :py:class:`~enum.Enum`"
 msgstr ""
 
 #: k2hash.DumpLevel:1 of
@@ -296,4 +302,13 @@ msgstr "ファイルオープン用フラグ"
 #: k2hash.TimeUnit:1 of
 msgid "k2hash time units"
 msgstr "時間単位"
+
+#~ msgid "k2hash.k2hash モジュール"
+#~ msgstr ""
+
+#~ msgid "Bases: :py:class:`_ctypes.Structure`"
+#~ msgstr ""
+
+#~ msgid "Bases: :py:class:`enum.Enum`"
+#~ msgstr ""
 

@@ -15,21 +15,23 @@
 from __future__ import absolute_import
 
 import ctypes
-from ctypes import c_bool, c_size_t, c_int, c_uint64, c_char_p, pointer, byref
 import logging
 import os
-from pathlib import Path
 import sys
-from k2hash import OpenFlag, DumpLevel, LogLevel, TimeUnit
+from ctypes import byref, c_bool, c_char_p, c_int, c_size_t, c_uint64, pointer
+from pathlib import Path
+
 import k2hash
+from k2hash import DumpLevel, LogLevel, OpenFlag, TimeUnit
 
 LOG = logging.getLogger(__name__)
 
 
 class K2hashIterator:
-    """ implements iterator of k2hash"""
+    """implements iterator of k2hash"""
+
     def __init__(self, k2h, key=None):
-        """Provides constructor """
+        """Provides constructor"""
         if not isinstance(k2h, K2hash):
             raise TypeError("k2h should be a K2hash object")
         self._k2h_handle = k2h.handle
@@ -43,7 +45,8 @@ class K2hashIterator:
 
         if self._key:
             handle = self._libk2hash.k2h_find_first_str_subkey(
-                self._k2h_handle, (c_char_p(self._key.encode())))
+                self._k2h_handle, (c_char_p(self._key.encode()))
+            )
         else:
             handle = self._libk2hash.k2h_find_first(self._k2h_handle)
 
@@ -52,11 +55,11 @@ class K2hashIterator:
         self._handle = handle
 
     def __iter__(self):
-        """Implements iter() itrator interface """
+        """Implements iter() itrator interface"""
         return self
 
     def __next__(self):
-        """Implements next() itrator interface """
+        """Implements next() itrator interface"""
         ppkey = pointer(c_char_p("".encode()))
         pkeylength = pointer(c_size_t(0))
         res = self._libk2hash.k2h_find_get_key(self._handle, ppkey, pkeylength)
@@ -70,10 +73,11 @@ class K2hashIterator:
         raise StopIteration
 
 
-class K2hash:
+class K2hash:  # noqa: pylint: disable=too-many-instance-attributes,too-many-public-methods
     """
     K2hash class provides methods to handle key/value pairs in k2hash hash database.
     """
+
     K2H_INVALID_HANDLE = 0
 
     def get_iterator(self, key=None):
@@ -87,67 +91,83 @@ class K2hash:
         if self._k2hfile == "":
             if self._flag is None:
                 # case1. no k2hfile + no flag ---> k2hash_open_memory
-                handle = self._libk2hash.k2h_open_mem(self._maskbit,
-                                                      self._cmaskbit,
-                                                      self._maxelementcnt,
-                                                      self._pagesize)
+                handle = self._libk2hash.k2h_open_mem(
+                    self._maskbit, self._cmaskbit, self._maxelementcnt, self._pagesize
+                )
             elif self._flag == OpenFlag.MEMORY:
                 # case2. no k2hfile + flag. k2hash_open_memory if flag is memory, otherwise error.
-                handle = self._libk2hash.k2h_open_mem(self._maskbit,
-                                                      self._cmaskbit,
-                                                      self._maxelementcnt,
-                                                      self._pagesize)
+                handle = self._libk2hash.k2h_open_mem(
+                    self._maskbit, self._cmaskbit, self._maxelementcnt, self._pagesize
+                )
             else:
                 raise ValueError("flag should be memory if k2hfile is empty")
         else:
             if self._flag is None:
                 # case3. k2hfile + no flag ---> k2h_open
                 handle = self._libk2hash.k2h_open(
-                    c_char_p(self._k2hfile.encode()), self._readonly,
-                    self._removefile, self._fullmap, self._maskbit,
-                    self._cmaskbit, self._maxelementcnt, self._pagesize)
+                    c_char_p(self._k2hfile.encode()),
+                    self._readonly,
+                    self._removefile,
+                    self._fullmap,
+                    self._maskbit,
+                    self._cmaskbit,
+                    self._maxelementcnt,
+                    self._pagesize,
+                )
             elif self._flag == OpenFlag.EDIT:
                 # case4. k2hfile + flag ---> k2hash_open_{rw|r|tempfile} if flag is not memory,
                 # Otherwise error
                 handle = self._libk2hash.k2h_open_rw(
-                    c_char_p(self._k2hfile.encode()), self._fullmap,
-                    self._maskbit, self._cmaskbit, self._maxelementcnt,
-                    self._pagesize)
+                    c_char_p(self._k2hfile.encode()),
+                    self._fullmap,
+                    self._maskbit,
+                    self._cmaskbit,
+                    self._maxelementcnt,
+                    self._pagesize,
+                )
             elif self._flag == OpenFlag.READ:
                 # Checks if self._k2hfile exists.
                 if os.path.exists(Path(self._k2hfile)) is True:
                     handle = self._libk2hash.k2h_open_ro(
-                        c_char_p(self._k2hfile.encode()), self._fullmap,
-                        self._maskbit, self._cmaskbit, self._maxelementcnt,
-                        self._pagesize)
+                        c_char_p(self._k2hfile.encode()),
+                        self._fullmap,
+                        self._maskbit,
+                        self._cmaskbit,
+                        self._maxelementcnt,
+                        self._pagesize,
+                    )
                 else:
-                    raise RuntimeError("{} should exist".format(self._k2hfile))
+                    raise RuntimeError(f"{self._k2hfile} should exist")
             elif self._flag == OpenFlag.TEMPFILE:
                 handle = self._libk2hash.k2h_open_tempfile(
-                    c_char_p(self._k2hfile.encode()), self._fullmap,
-                    self._maskbit, self._cmaskbit, self._maxelementcnt,
-                    self._pagesize)
+                    c_char_p(self._k2hfile.encode()),
+                    self._fullmap,
+                    self._maskbit,
+                    self._cmaskbit,
+                    self._maxelementcnt,
+                    self._pagesize,
+                )
             else:
-                raise ValueError(
-                    "k2hfile should be empty if using flag is memory")
+                raise ValueError("k2hfile should be empty if using flag is memory")
 
         if handle == self.__class__.K2H_INVALID_HANDLE:
             raise RuntimeError("handle should not be K2H_INVALID_HANDLE")
         self._handle = handle
 
-    def __init__(  # noqa: pylint: disable=too-many-branches
-            self,
-            k2hfile="",
-            flag=None,
-            readonly=True,
-            removefile=True,
-            fullmap=True,
-            maskbit=8,
-            cmaskbit=4,
-            maxelementcnt=1024,
-            pagesize=512,
-            waitms=0,
-            logfile=""):
+    def __init__(  # noqa: pylint: disable=too-many-branches,too-many-arguments
+        self,
+        k2hfile="",
+        flag=None,
+        readonly=True,
+        removefile=True,
+        fullmap=True,
+        maskbit=8,
+        cmaskbit=4,
+        maxelementcnt=1024,
+        pagesize=512,
+        waitms=0,
+        logfile="",
+    ):
         """
         Initialize a new K2hash instnace.
         """
@@ -196,7 +216,7 @@ class K2hash:
             self._libc = k2hash.get_library_handle()["c"]
             self._libk2hash = k2hash.get_library_handle()["k2hash"]
             if not self._libk2hash:
-                raise Exception('unable to load k2hash library')
+                raise RuntimeError("unable to load k2hash library")
         except:
             LOG.error("Unexpected error:{%s}", sys.exc_info()[0])
             raise
@@ -205,21 +225,18 @@ class K2hash:
 
     @property
     def libk2hash(self):
-        """returns libk2hash handle """
+        """returns libk2hash handle"""
         return self._libk2hash
 
     @property
     def libc(self):
-        """returns libc handle """
+        """returns libc handle"""
         return self._libc
 
-    def set(self,
-            key,
-            val,
-            password=None,
-            expire_duration=None,
-            time_unit=TimeUnit.SECONDS):
-        """Sets a key/value pair """
+    def set(  # noqa: pylint: disable=too-many-arguments
+        self, key, val, password=None, expire_duration=None, time_unit=TimeUnit.SECONDS
+    ):
+        """Sets a key/value pair"""
         if not isinstance(key, str):
             raise TypeError("key should currently be a str object")
         if not key:
@@ -238,15 +255,18 @@ class K2hash:
             raise TypeError("time_unit should be a TimeUnit object")
 
         res = self._libk2hash.k2h_set_str_value_wa(
-            self._handle, c_char_p(key.encode()), c_char_p(val.encode()),
+            self._handle,
+            c_char_p(key.encode()),
+            c_char_p(val.encode()),
             (c_char_p(password.encode()) if password else None),
-            (pointer(c_uint64(expire_duration)) if expire_duration else None))
+            (pointer(c_uint64(expire_duration)) if expire_duration else None),
+        )
 
         LOG.debug("ret:%s", res)
         return res
 
     def get(self, key, password=None):
-        """Gets the value """
+        """Gets the value"""
         if not isinstance(key, str):
             raise TypeError("key should currently be a str object")
         if not key:
@@ -257,8 +277,10 @@ class K2hash:
             raise ValueError("password should not be empty")
 
         val = self._libk2hash.k2h_get_str_direct_value_wp(
-            self._handle, c_char_p(key.encode()),
-            (c_char_p(password.encode()) if password else None))
+            self._handle,
+            c_char_p(key.encode()),
+            (c_char_p(password.encode()) if password else None),
+        )
 
         if val:
             return val.decode()
@@ -269,13 +291,14 @@ class K2hash:
         if not isinstance(path, str):
             raise TypeError("path should currently be a str object")
         if not os.path.exists(Path(path)):
-            raise RuntimeError("path {} should exists".format(path))
+            raise RuntimeError(f"path {path} should exists")
 
         res = self._libk2hash.k2h_add_attr_plugin_library(
-            self._handle, c_char_p(path.encode()))
+            self._handle, c_char_p(path.encode())
+        )
 
         if not res:
-            LOG.error('error in k2h_add_attr_plugin_library')
+            LOG.error("error in k2h_add_attr_plugin_library")
         return res
 
     def add_decryption_password(self, password):
@@ -286,19 +309,22 @@ class K2hash:
             raise ValueError("password should not be empty")
 
         res = self._libk2hash.k2h_add_attr_crypt_pass(
-            self._handle, c_char_p(password.encode()), False)
+            self._handle, c_char_p(password.encode()), False
+        )
 
         if not res:
-            LOG.error('error in k2h_add_attr_crypt_pass')
+            LOG.error("error in k2h_add_attr_crypt_pass")
         return res
 
-    def add_subkey(self,
-                   key,
-                   subkey,
-                   subval,
-                   password=None,
-                   expire_duration=None,
-                   time_unit=TimeUnit.SECONDS):
+    def add_subkey(  # noqa: pylint: disable=too-many-arguments
+        self,
+        key,
+        subkey,
+        subval,
+        password=None,
+        expire_duration=None,
+        time_unit=TimeUnit.SECONDS,
+    ):
         """Adds subkeys to a key/value pair."""
         if not isinstance(key, str):
             raise TypeError("key should currently be a str object")
@@ -334,12 +360,11 @@ class K2hash:
         )
 
         if not res:
-            LOG.error('error in k2h_add_str_subkey_wa')
+            LOG.error("error in k2h_add_str_subkey_wa")
         return res
 
     def begin_tx(self, txfile, prefix=None, param=None, expire_duration=None):
-        """Starts a transaction logging.
-        """
+        """Starts a transaction logging."""
         if not isinstance(txfile, str):
             raise TypeError("txfile should be a str object")
         if txfile == "":
@@ -358,34 +383,32 @@ class K2hash:
             raise ValueError("expire_duration should not be positive")
 
         res = self._libk2hash.k2h_transaction_param_we(
-            self._handle, True, c_char_p(txfile.encode()),
+            self._handle,
+            True,
+            c_char_p(txfile.encode()),
             (c_char_p(prefix.encode()) if prefix else None),
             (c_size_t(len(prefix)) if prefix else 0),
             (c_char_p(param.encode()) if param else None),
             (c_size_t(len(param)) if param else 0),
-            (pointer(c_uint64(expire_duration)) if expire_duration else None))
+            (pointer(c_uint64(expire_duration)) if expire_duration else None),
+        )
 
         if not res:
-            LOG.error('error in k2h_transaction_param_we')
+            LOG.error("error in k2h_transaction_param_we")
         return res
 
     def close(self):
-        """Closes a k2h file.
-        """
+        """Closes a k2h file."""
         res = self._libk2hash.k2h_close_wait(self._handle, self._waitms)
         if not res:
-            LOG.error('error in k2h_close_wait')
+            LOG.error("error in k2h_close_wait")
         return res
 
     @staticmethod
     def create(  # noqa: pylint: disable=too-many-branches
-            pathname,
-            maskbit=8,
-            cmaskbit=4,
-            maxelementcnt=1024,
-            pagesize=512):
-        """Creates a k2hash file.
-        """
+        pathname, maskbit=8, cmaskbit=4, maxelementcnt=1024, pagesize=512
+    ):
+        """Creates a k2hash file."""
         if not isinstance(pathname, str):
             raise TypeError("pathname should be a str object")
         if not pathname:
@@ -411,21 +434,24 @@ class K2hash:
             # https://docs.python.org/3/library/ctypes.html#ctypes.LibraryLoader.LoadLibrary
             libk2hash = k2hash.get_library_handle()["k2hash"]
             if not libk2hash:
-                raise Exception('unable to load k2hash library')
+                raise RuntimeError("unable to load k2hash library")
         except:
             LOG.error("Unexpected error:{%s}", sys.exc_info()[0])
             raise
 
-        res = libk2hash.k2h_create(c_char_p(pathname.encode()), c_int(maskbit),
-                                   c_int(cmaskbit), c_int(maxelementcnt),
-                                   c_size_t(pagesize))
+        res = libk2hash.k2h_create(
+            c_char_p(pathname.encode()),
+            c_int(maskbit),
+            c_int(cmaskbit),
+            c_int(maxelementcnt),
+            c_size_t(pagesize),
+        )
         if not res:
             LOG.error("error in k2h_create")
         return res
 
     def dump_to_file(self, path, is_skip_error=True):
-        """Dumps data to a file.
-        """
+        """Dumps data to a file."""
         if not isinstance(path, str):
             raise TypeError("path should be a str object")
         if not path:
@@ -433,64 +459,65 @@ class K2hash:
         if not isinstance(is_skip_error, bool):
             raise TypeError("is_skip_error should be a boolean object")
 
-        res = self._libk2hash.k2h_put_archive(self._handle,
-                                              c_char_p(path.encode()),
-                                              is_skip_error)
+        res = self._libk2hash.k2h_put_archive(
+            self._handle, c_char_p(path.encode()), is_skip_error
+        )
         if not res:
             LOG.error("error in k2h_create")
         return res
 
     def enable_encryption(self, enable=True):
-        """Enables a feature to encrypt a value.
-        """
+        """Enables a feature to encrypt a value."""
         if not isinstance(enable, bool):
             raise TypeError("enable should be a bool object")
 
-        res = self._libk2hash.k2h_set_common_attr(self._handle, None,
-                                                  c_bool(enable), None, None,
-                                                  None)
+        res = self._libk2hash.k2h_set_common_attr(
+            self._handle, None, c_bool(enable), None, None, None
+        )
         if not res:
             LOG.error("error in k2h_set_common_attr")
         return res
 
     def enable_history(self, enable=True):
-        """Enables a feature to record a key modification history.
-        """
+        """Enables a feature to record a key modification history."""
         if not isinstance(enable, bool):
             raise TypeError("enable should be a bool object")
 
-        res = self._libk2hash.k2h_set_common_attr(self._handle, None, None,
-                                                  None, c_bool(enable), None)
+        res = self._libk2hash.k2h_set_common_attr(
+            self._handle, None, None, None, c_bool(enable), None
+        )
         if not res:
             LOG.error("error in k2h_set_common_attr")
         return res
 
     def enable_mtime(self, enable=True):
-        """Enables a feature to record value modification time.
-        """
+        """Enables a feature to record value modification time."""
         if not isinstance(enable, bool):
             raise TypeError("enable should be a bool object")
 
-        res = self._libk2hash.k2h_set_common_attr(self._handle, c_bool(enable),
-                                                  None, None, None, None)
+        res = self._libk2hash.k2h_set_common_attr(
+            self._handle, c_bool(enable), None, None, None, None
+        )
         if not res:
             LOG.error("error in k2h_set_common_attr")
         return res
 
     def get_attributes(self, key, use_str=True):
-        """Gets attributes of a key.
-        """
+        """Gets attributes of a key."""
         if not isinstance(key, str):
             raise TypeError("key should currently be a str object")
         if not key:
             raise ValueError("key should not be empty")
         pattrspckcnt = c_int()
-        res = self._libk2hash.k2h_get_direct_attrs(self._handle,
-                                                   c_char_p(key.encode()),
-                                                   c_size_t(len(key)),
-                                                   byref(pattrspckcnt))
-        LOG.debug("type(res):{%s} pattrspckcnt.value{%s}", type(res),
-                  pattrspckcnt.value)
+        res = self._libk2hash.k2h_get_direct_attrs(
+            self._handle,
+            c_char_p(key.encode()),
+            c_size_t(len(key)),
+            byref(pattrspckcnt),
+        )
+        LOG.debug(
+            "type(res):{%s} pattrspckcnt.value{%s}", type(res), pattrspckcnt.value
+        )
         attrs = {}
         for i in range(pattrspckcnt.value):
             key_buf = ctypes.create_string_buffer(res[i].keylength)
@@ -507,23 +534,23 @@ class K2hash:
 
     @property
     def handle(self):
-        """Returns a Queue handle.
-        """
+        """Returns a Queue handle."""
         return self._handle
 
     def get_subkeys(self, key, use_str=True):
-        """ Gets keys of subkeys of a key.
-        """
+        """Gets keys of subkeys of a key."""
         if not isinstance(key, str):
             raise TypeError("key should currently be a str object")
         if not key:
             raise ValueError("key should not be empty")
 
         pskeypckcnt = c_int()
-        res = self._libk2hash.k2h_get_direct_subkeys(self._handle,
-                                                     c_char_p(key.encode()),
-                                                     c_size_t(len(key) + 1),
-                                                     byref(pskeypckcnt))
+        res = self._libk2hash.k2h_get_direct_subkeys(
+            self._handle,
+            c_char_p(key.encode()),
+            c_size_t(len(key) + 1),
+            byref(pskeypckcnt),
+        )
         LOG.debug("%s", pskeypckcnt.value)
         subkeys = []
         for i in range(pskeypckcnt.value):
@@ -537,20 +564,18 @@ class K2hash:
         return subkeys
 
     def get_tx_file_fd(self):
-        """Gets a transaction log file descriptor.
-        """
+        """Gets a transaction log file descriptor."""
         res = self._libk2hash.k2h_get_transaction_archive_fd(self._handle)
         return res
 
     @staticmethod
     def get_tx_pool_size():
-        """Gets the number of transaction thread pool.
-        """
+        """Gets the number of transaction thread pool."""
         try:
             # https://docs.python.org/3/library/ctypes.html#ctypes.LibraryLoader.LoadLibrary
             libk2hash = k2hash.get_library_handle()["k2hash"]
             if not libk2hash:
-                raise Exception('unable to load k2hash library')
+                raise RuntimeError("unable to load k2hash library")
         except:
             LOG.error("Unexpected error:{%s}", sys.exc_info()[0])
 
@@ -560,43 +585,38 @@ class K2hash:
         return res
 
     def load_from_file(self, path, is_skip_error=True):
-        """Loads data from a file.
-        """
+        """Loads data from a file."""
         if not isinstance(path, str):
             raise TypeError("path should currently be a str object")
         if not os.path.exists(Path(path)):
-            raise RuntimeError("path{} should exists".format(path))
+            raise RuntimeError(f"path{path} should exists")
         if not isinstance(is_skip_error, bool):
             raise TypeError("is_skip_error should be a boolean object")
 
-        res = self._libk2hash.k2h_load_archive(self._handle,
-                                               c_char_p(path.encode()),
-                                               c_bool(is_skip_error))
+        res = self._libk2hash.k2h_load_archive(
+            self._handle, c_char_p(path.encode()), c_bool(is_skip_error)
+        )
         if not res:
             LOG.error("error in k2h_load_archive")
         return res
 
     def print_attribute_plugins(self):
-        """Prints attribute plugins to stderr.
-        """
+        """Prints attribute plugins to stderr."""
         res = self._libk2hash.k2h_print_attr_version(self._handle, None)
         return res
 
     def print_attributes(self):
-        """Prints attributes to stderr.
-        """
+        """Prints attributes to stderr."""
         res = self._libk2hash.k2h_print_attr_information(self._handle, None)
         return res
 
     def print_data_stats(self):
-        """Prints data statistics.
-        """
+        """Prints data statistics."""
         res = self._libk2hash.k2h_print_state(self._handle, None)
         return res
 
     def print_table_stats(self, level=DumpLevel.HEADER):
-        """Prints k2hash key table information.
-        """
+        """Prints k2hash key table information."""
         if not isinstance(level, DumpLevel):
             raise TypeError("level should be a DumpLevel object")
 
@@ -617,8 +637,7 @@ class K2hash:
         return res
 
     def remove(self, key, remove_all_subkeys=False):
-        """Removes a key.
-        """
+        """Removes a key."""
         if not isinstance(key, str):
             raise TypeError("key should be a str object")
         if not key:
@@ -626,16 +645,15 @@ class K2hash:
         if not isinstance(remove_all_subkeys, bool):
             raise TypeError("remove_all_subkeys should be a boolean object")
         if remove_all_subkeys:
-            res = self._libk2hash.k2h_remove_str_all(self._handle,
-                                                     c_char_p(key.encode()))
+            res = self._libk2hash.k2h_remove_str_all(
+                self._handle, c_char_p(key.encode())
+            )
         else:
-            res = self._libk2hash.k2h_remove_str(self._handle,
-                                                 c_char_p(key.encode()))
+            res = self._libk2hash.k2h_remove_str(self._handle, c_char_p(key.encode()))
         return res
 
     def remove_subkeys(self, key, subkeys):
-        """Removes subkeys from the key.
-        """
+        """Removes subkeys from the key."""
         if not isinstance(key, str):
             raise TypeError("key should be a str object")
         if not key:
@@ -652,15 +670,14 @@ class K2hash:
                 LOG.warning("subkey should not be empty")
                 continue
             res = self._libk2hash.k2h_remove_str_subkey(
-                self._handle, c_char_p(key.encode()),
-                c_char_p(subkey.encode()))
+                self._handle, c_char_p(key.encode()), c_char_p(subkey.encode())
+            )
             if not res:
                 return False
         return True
 
     def rename(self, key, newkey):
-        """Renames a key with a new key.
-        """
+        """Renames a key with a new key."""
         if not isinstance(key, str):
             raise TypeError("key should be a str object")
         if not key:
@@ -669,14 +686,13 @@ class K2hash:
             raise TypeError("newkey should be a str object")
         if not newkey:
             raise ValueError("newkey should not be empty")
-        res = self._libk2hash.k2h_rename_str(self._handle,
-                                             c_char_p(key.encode()),
-                                             c_char_p(newkey.encode()))
+        res = self._libk2hash.k2h_rename_str(
+            self._handle, c_char_p(key.encode()), c_char_p(newkey.encode())
+        )
         return res
 
     def set_attribute(self, key, attr_name, attr_val):
-        """Sets an attribute of a key.
-        """
+        """Sets an attribute of a key."""
         if not isinstance(key, str):
             raise TypeError("key should be a str object")
         if not key:
@@ -689,45 +705,43 @@ class K2hash:
             raise TypeError("attr_val should be a str object")
         if not attr_val:
             raise ValueError("attr_val should not be empty")
-        res = self._libk2hash.k2h_add_attr(self._handle,
-                                           c_char_p(key.encode()),
-                                           c_size_t(len(key)),
-                                           c_char_p(attr_name.encode()),
-                                           c_size_t(len(attr_name) + 1),
-                                           c_char_p(attr_val.encode()),
-                                           c_size_t(len(attr_val) + 1))
+        res = self._libk2hash.k2h_add_attr(
+            self._handle,
+            c_char_p(key.encode()),
+            c_size_t(len(key)),
+            c_char_p(attr_name.encode()),
+            c_size_t(len(attr_name) + 1),
+            c_char_p(attr_val.encode()),
+            c_size_t(len(attr_val) + 1),
+        )
         return res
 
     def set_default_encryption_password(self, password):
-        """Sets the default encryption passphrase.
-        """
+        """Sets the default encryption passphrase."""
         if not isinstance(password, str):
             raise TypeError("password should be a str object")
         if not password:
             raise ValueError("password should not be empty")
         res = self._libk2hash.k2h_add_attr_crypt_pass(
-            self._handle, c_char_p(password.encode()), c_bool(True))
+            self._handle, c_char_p(password.encode()), c_bool(True)
+        )
         return res
 
     def set_encryption_password_file(self, path):
-        """Sets the data encryption password file.
-        """
+        """Sets the data encryption password file."""
         if not isinstance(path, str):
             raise TypeError("path should currently be a str object")
         if not os.path.exists(Path(path)):
-            raise RuntimeError("path{} should exists".format(path))
-        res = self._libk2hash.k2h_set_common_attr(self._handle, None, None,
-                                                  c_char_p(path.encode()),
-                                                  None, None)
+            raise RuntimeError(f"path{path} should exists")
+        res = self._libk2hash.k2h_set_common_attr(
+            self._handle, None, None, c_char_p(path.encode()), None, None
+        )
         if not res:
             LOG.error("error in k2h_set_common_attr")
         return res
 
-    def set_expiration_duration(self,
-                                expire_duration,
-                                time_unit=TimeUnit.SECONDS):
-        """Sets the duration to expire a value.
-        """
+    def set_expiration_duration(self, expire_duration, time_unit=TimeUnit.SECONDS):
+        """Sets the duration to expire a value."""
         if not isinstance(expire_duration, int):
             raise TypeError("expire_duration should be a int object")
         if expire_duration <= 0:
@@ -735,15 +749,14 @@ class K2hash:
         if not isinstance(time_unit, TimeUnit):
             raise TypeError("time_unit should be a TimeUnit object")
         res = self._libk2hash.k2h_set_common_attr(
-            self._handle, None, None, None, None,
-            pointer(c_uint64(expire_duration)))
+            self._handle, None, None, None, None, pointer(c_uint64(expire_duration))
+        )
         if not res:
             LOG.error("error in k2h_set_common_attr")
         return res
 
     def set_log_level(self, level=LogLevel.INFO):
-        """Creates a k2hash file.
-        """
+        """Creates a k2hash file."""
         if not isinstance(level, LogLevel):
             raise TypeError("level should be a LogLevel object")
         if not level:
@@ -761,17 +774,18 @@ class K2hash:
             self._libk2hash.k2h_set_debug_level_dump()
         else:
             raise ValueError(
-                "level should be either SILENT, ERROR, WARN, INFO or DEBUG")
+                "level should be either SILENT, ERROR, WARN, INFO or DEBUG"
+            )
 
-    def set_subkeys(  # noqa: pylint: disable=too-many-branches
-            self,
-            key,
-            subkeys,
-            password=None,
-            expire_duration=None,
-            time_unit=TimeUnit.SECONDS):
-        """Sets subkeys.
-        """
+    def set_subkeys(  # noqa: pylint: disable=too-many-branches,too-many-arguments
+        self,
+        key,
+        subkeys,
+        password=None,
+        expire_duration=None,
+        time_unit=TimeUnit.SECONDS,
+    ):
+        """Sets subkeys."""
         if not isinstance(key, str):
             raise TypeError("key should be a str object")
         if not key:
@@ -812,8 +826,7 @@ class K2hash:
                 c_char_p(subval.encode()),
                 c_size_t(len(subval) + 1),
                 (c_char_p(password.encode()) if password else None),
-                (pointer(c_uint64(expire_duration))
-                 if expire_duration else None),
+                (pointer(c_uint64(expire_duration)) if expire_duration else None),
             )
             if res:
                 LOG.debug("k2h_add_str_subkeys:{%s}", res)
@@ -823,8 +836,7 @@ class K2hash:
 
     @staticmethod
     def set_tx_pool_size(size):
-        """Sets the number of transaction thread pool.
-        """
+        """Sets the number of transaction thread pool."""
         if not isinstance(size, int):
             raise TypeError("size should be a int object")
         if size < 0:
@@ -833,7 +845,7 @@ class K2hash:
             # https://docs.python.org/3/library/ctypes.html#ctypes.LibraryLoader.LoadLibrary
             libk2hash = k2hash.get_library_handle()["k2hash"]
             if not libk2hash:
-                raise Exception('unable to load k2hash library')
+                raise RuntimeError("unable to load k2hash library")
         except:
             LOG.error("Unexpected error:{%s}", sys.exc_info()[0])
             raise
@@ -844,51 +856,47 @@ class K2hash:
         return res
 
     def stop_tx(self):
-        """Stops a transaction logging.
-        """
-        res = self._libk2hash.k2h_disable_transaction(self._handle,
-                                                      c_bool(False))
+        """Stops a transaction logging."""
+        res = self._libk2hash.k2h_disable_transaction(self._handle)
         if not res:
-            LOG.error('error in k2h_disable_transaction')
+            LOG.error("error in k2h_disable_transaction")
         return res
 
     def __repr__(self):
-        """Returns full of members as a string.
-        """
+        """Returns full of members as a string."""
         attrs = []
         for attr in [
-                '_k2hfile',
-                '_flag',
-                '_readonly',
-                '_removefile',
-                '_fullmap',
-                '_maskbit',
-                '_cmaskbit',
-                '_maxelementcnt',
-                '_pagesize',
-                '_waitms',
-                '_logfile',
-                '_libc',
-                '_libk2hash',
-                '_handle',
+            "_k2hfile",
+            "_flag",
+            "_readonly",
+            "_removefile",
+            "_fullmap",
+            "_maskbit",
+            "_cmaskbit",
+            "_maxelementcnt",
+            "_pagesize",
+            "_waitms",
+            "_logfile",
+            "_libc",
+            "_libk2hash",
+            "_handle",
         ]:  # should be hardcoded.
             val = getattr(self, attr)
             if val:
                 attrs.append((attr, repr(val)))
             else:
-                attrs.append((attr, ''))
-            values = ', '.join(['%s=%s' % i for i in attrs])
-        return '<_K2hash ' + values + '>'
+                attrs.append((attr, ""))
+            values = ", ".join(["%s=%s" % i for i in attrs])  # noqa: pylint: disable=consider-using-f-string
+        return "<_K2hash " + values + ">"
 
     @staticmethod
     def version():
-        """Prints version information.
-        """
+        """Prints version information."""
         try:
             # https://docs.python.org/3/library/ctypes.html#ctypes.LibraryLoader.LoadLibrary
             libk2hash = k2hash.get_library_handle()["k2hash"]
             if not libk2hash:
-                raise Exception('unable to load k2hash library')
+                raise RuntimeError("unable to load k2hash library")
         except:
             LOG.error("Unexpected error:{%s}", sys.exc_info()[0])
             raise
