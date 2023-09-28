@@ -17,48 +17,66 @@ k2hash package
 from __future__ import absolute_import
 
 __all__ = [
-    'K2hash', 'Queue', 'KeyQueue', 'K2hashIterator', 'LogLevel', 'KeyPack',
-    'AttrPack', 'OpenFlag', 'DumpLevel', 'LogLevel', 'TimeUnit'
+    "K2hash",
+    "Queue",
+    "BaseQueue",
+    "KeyQueue",
+    "K2hashIterator",
+    "LogLevel",
+    "KeyPack",
+    "AttrPack",
+    "OpenFlag",
+    "DumpLevel",
+    "LogLevel",
+    "TimeUnit",
 ]
 
-from typing import List, Set, Dict, Tuple, Optional, Union  # noqa: pylint: disable=unused-import
-
 import ctypes
-from ctypes.util import find_library
-from ctypes import c_bool, c_ubyte, c_size_t, c_int, c_uint64, c_long
-from ctypes import c_ulong, c_char_p, POINTER, Structure
-from enum import Enum
 import logging
-from logging.handlers import TimedRotatingFileHandler
-from logging import StreamHandler
 import sys
+from ctypes import (
+    POINTER,
+    Structure,
+    c_bool,
+    c_char_p,
+    c_int,
+    c_long,
+    c_size_t,
+    c_ubyte,
+    c_uint64,
+    c_ulong,
+)
+from ctypes.util import find_library
+from enum import Enum
+from logging import StreamHandler
+from logging.handlers import TimedRotatingFileHandler
+from typing import List  # noqa: pylint: disable=unused-import
+from typing import Dict, Optional, Set, Tuple, Union
 
 LOG = logging.getLogger(__name__)
 
 
 # https://docs.python.org/3/library/ctypes.html#incomplete-types
 class FILE(Structure):  # noqa: pylint:disable=too-few-public-methods
-    """C FILE structure
-    """
+    """C FILE structure"""
 
 
 # https://docs.python.org/3/library/ctypes.html#incomplete-types
 class time_t(Structure):  # noqa: pylint:disable=too-few-public-methods,invalid-name
-    """C time_t structure
-    """
+    """C time_t structure"""
 
 
 # KeyPack structure
 # See: https://github.com/yahoojapan/k2hash/blob/master/lib/k2hash.h#L75
 #
 # typedef struct k2h_key_pack{
-#	unsigned char*	pkey;
-#	size_t			length;
+# 	unsigned char*	pkey;
+# 	size_t			length;
 # }K2HKEYPCK, *PK2HKEYPCK;
 #
 class KeyPack(Structure):  # noqa: pylint:disable=too-few-public-methods
-    """C KeyPack structure
-    """
+    """C KeyPack structure"""
+
     _fields_ = [("pkey", POINTER(c_ubyte)), ("length", c_size_t)]
 
 
@@ -66,22 +84,26 @@ class KeyPack(Structure):  # noqa: pylint:disable=too-few-public-methods
 # See: https://github.com/yahoojapan/k2hash/blob/master/lib/k2hash.h#L81
 #
 # typedef struct k2h_attr_pack{
-#	unsigned char*	pkey;
-#	size_t			keylength;
-#	unsigned char*	pval;
-#	size_t			vallength;
+# 	unsigned char*	pkey;
+# 	size_t			keylength;
+# 	unsigned char*	pval;
+# 	size_t			vallength;
 # }K2HATTRPCK, *PK2HATTRPCK;
 #
 class AttrPack(Structure):  # noqa: pylint:disable=too-few-public-methods
-    """C Attr structure
-    """
-    _fields_ = [("pkey", POINTER(c_ubyte)), ("keylength", c_size_t),
-                ("pval", POINTER(c_ubyte)), ("vallength", c_size_t)]
+    """C Attr structure"""
+
+    _fields_ = [
+        ("pkey", POINTER(c_ubyte)),
+        ("keylength", c_size_t),
+        ("pval", POINTER(c_ubyte)),
+        ("vallength", c_size_t),
+    ]
 
 
 class OpenFlag(Enum):
-    """k2hash file open flags
-    """
+    """k2hash file open flags"""
+
     READ = 1
     EDIT = 2
     TEMPFILE = 3
@@ -89,8 +111,8 @@ class OpenFlag(Enum):
 
 
 class TimeUnit(Enum):
-    """k2hash time units
-    """
+    """k2hash time units"""
+
     DAYS = 1
     HOURS = 2
     MILLISECONDS = 3
@@ -99,8 +121,8 @@ class TimeUnit(Enum):
 
 
 class DumpLevel(Enum):
-    """k2hash file status information
-    """
+    """k2hash file status information"""
+
     # Dump headers
     HEADER = 1
     # Dump headers and hash tables
@@ -114,8 +136,8 @@ class DumpLevel(Enum):
 
 
 class LogLevel(Enum):
-    """k2hash log level
-    """
+    """k2hash log level"""
+
     # Silent disables logging.
     SILENT = 1
     # logs on errors
@@ -140,8 +162,8 @@ def _init_library_handle():
 
     # Loads libc and libk2hash and ...
     result = {}
-    result['c'] = _load_libc()
-    result['k2hash'] = _load_libk2hash()
+    result["c"] = _load_libc()
+    result["k2hash"] = _load_libk2hash()
     _HANDLE = result
 
     return result
@@ -157,7 +179,7 @@ def _load_libc():
 
 def _load_libk2hash():  # noqa: pylint: disable=too-many-statements
     ret = ctypes.cdll.LoadLibrary(find_library("k2hash"))
-    if ret._name is None:
+    if ret is None:
         return None
 
     # Defines prototypes for python code
@@ -175,10 +197,7 @@ def _load_libk2hash():  # noqa: pylint: disable=too-many-statements
     ret.k2h_find_next.argtypes = [c_uint64]
     # bool k2h_find_get_key(k2h_find_h findhandle, unsigned char** ppkey, size_t* pkeylength)
     ret.k2h_find_get_key.restype = c_uint64
-    ret.k2h_find_get_key.argtypes = [
-        c_uint64, POINTER(c_char_p),
-        POINTER(c_size_t)
-    ]
+    ret.k2h_find_get_key.argtypes = [c_uint64, POINTER(c_char_p), POINTER(c_size_t)]
     #
     # 3. keyqueue API
     #
@@ -193,8 +212,11 @@ def _load_libk2hash():  # noqa: pylint: disable=too-many-statements
     # const time_t* expire)
     ret.k2h_keyq_str_push_keyval_wa.restype = c_bool
     ret.k2h_keyq_str_push_keyval_wa.argtypes = [
-        c_uint64, c_char_p, c_char_p, c_char_p,
-        POINTER(c_long)
+        c_uint64,
+        c_char_p,
+        c_char_p,
+        c_char_p,
+        POINTER(c_long),
     ]
     # bool k2h_keyq_dump(k2h_keyq_h qhandle, FILE* stream)
     ret.k2h_keyq_dump.restype = c_bool
@@ -211,7 +233,9 @@ def _load_libk2hash():  # noqa: pylint: disable=too-many-statements
     ret.k2h_keyq_str_read_keyval_wp.argtypes = [
         c_uint64,
         POINTER(c_char_p),
-        POINTER(c_char_p), c_int, c_char_p
+        POINTER(c_char_p),
+        c_int,
+        c_char_p,
     ]
     # bool k2h_keyq_empty(k2h_keyq_h qhandle)
     ret.k2h_keyq_empty.restype = c_bool
@@ -220,8 +244,10 @@ def _load_libk2hash():  # noqa: pylint: disable=too-many-statements
     # k2h_keyq_h keyqhandle, char** ppkey, char** ppval, const char* encpass)
     ret.k2h_keyq_str_pop_keyval_wp.restype = c_bool
     ret.k2h_keyq_str_pop_keyval_wp.argtypes = [
-        c_uint64, POINTER(c_char_p),
-        POINTER(c_char_p), c_char_p
+        c_uint64,
+        POINTER(c_char_p),
+        POINTER(c_char_p),
+        c_char_p,
     ]
     # bool k2h_keyq_remove(k2h_keyq_h qhandle, int count)
     ret.k2h_keyq_remove.restype = c_bool
@@ -238,9 +264,12 @@ def _load_libk2hash():  # noqa: pylint: disable=too-many-statements
     #   int attrspckcnt, const char* encpass, const time_t* expire)
     ret.k2h_q_str_push_wa.restype = c_bool
     ret.k2h_q_str_push_wa.argtypes = [
-        c_uint64, c_char_p,
-        POINTER(AttrPack), c_int, c_char_p,
-        POINTER(c_ulong)
+        c_uint64,
+        c_char_p,
+        POINTER(AttrPack),
+        c_int,
+        c_char_p,
+        POINTER(c_ulong),
     ]
     # bool k2h_q_str_push(k2h_q_h qhandle, const char* pval)
     ret.k2h_q_str_push.restype = c_bool
@@ -259,7 +288,9 @@ def _load_libk2hash():  # noqa: pylint: disable=too-many-statements
     ret.k2h_q_read_wp.argtypes = [
         c_uint64,
         POINTER(c_char_p),
-        POINTER(c_size_t), c_int, c_char_p
+        POINTER(c_size_t),
+        c_int,
+        c_char_p,
     ]
     # bool k2h_q_empty(k2h_q_h qhandle)
     ret.k2h_q_empty.restype = c_bool
@@ -294,7 +325,13 @@ def _load_libk2hash():  # noqa: pylint: disable=too-many-statements
     # k2h_h handle, const unsigned char* pkey, size_t keylength, const unsigned char* pattrkey,
     # size_t attrkeylength, const unsigned char* pattrval, size_t attrvallength)
     ret.k2h_add_attr.argtypes = [
-        c_uint64, c_char_p, c_size_t, c_char_p, c_size_t, c_char_p, c_size_t
+        c_uint64,
+        c_char_p,
+        c_size_t,
+        c_char_p,
+        c_size_t,
+        c_char_p,
+        c_size_t,
     ]
     ret.k2h_add_attr.restype = c_bool
 
@@ -303,16 +340,28 @@ def _load_libk2hash():  # noqa: pylint: disable=too-many-statements
     # k2h_h handle, const unsigned char* pkey, size_t keylength, const unsigned char* psubkey,
     # size_t skeylength, const unsigned char* pval, size_t vallength)
     ret.k2h_add_subkey.argtypes = [
-        c_uint64, c_char_p, c_size_t, c_char_p, c_size_t, c_char_p, c_size_t
+        c_uint64,
+        c_char_p,
+        c_size_t,
+        c_char_p,
+        c_size_t,
+        c_char_p,
+        c_size_t,
     ]
     ret.k2h_add_subkey.restype = c_bool
     # bool k2h_add_subkey_wa(k2h_h handle, const unsigned char* pkey, size_t keylength,
     # const unsigned char* psubkey, size_t skeylength, const unsigned char* pval,
     # size_t vallength, const char* pass, const time_t* expire)
     ret.k2h_add_subkey_wa.argtypes = [
-        c_uint64, c_char_p, c_size_t, c_char_p, c_size_t, c_char_p, c_size_t,
+        c_uint64,
         c_char_p,
-        POINTER(c_ulong)
+        c_size_t,
+        c_char_p,
+        c_size_t,
+        c_char_p,
+        c_size_t,
+        c_char_p,
+        POINTER(c_ulong),
     ]
     ret.k2h_add_subkey_wa.restype = c_bool
 
@@ -358,19 +407,13 @@ def _load_libk2hash():  # noqa: pylint: disable=too-many-statements
     # get attrs API
     # PK2HATTRPCK k2h_get_direct_attrs(k2h_h handle, const unsigned char* pkey,
     # size_t keylength, int* pattrspckcnt)
-    ret.k2h_get_direct_attrs.argtypes = [
-        c_uint64, c_char_p, c_size_t,
-        POINTER(c_int)
-    ]
+    ret.k2h_get_direct_attrs.argtypes = [c_uint64, c_char_p, c_size_t, POINTER(c_int)]
     ret.k2h_get_direct_attrs.restype = POINTER(AttrPack)
 
     # get subkeys API
     # PK2HKEYPCK k2h_get_direct_subkeys(k2h_h handle, const unsigned char* pkey,
     # size_t keylength, int* pskeypckcnt)
-    ret.k2h_get_direct_subkeys.argtypes = [
-        c_uint64, c_char_p, c_size_t,
-        POINTER(c_int)
-    ]
+    ret.k2h_get_direct_subkeys.argtypes = [c_uint64, c_char_p, c_size_t, POINTER(c_int)]
     ret.k2h_get_direct_subkeys.restype = POINTER(KeyPack)
 
     # get transaction API
@@ -392,16 +435,21 @@ def _load_libk2hash():  # noqa: pylint: disable=too-many-statements
     ret.k2h_open_mem.argtypes = [c_int, c_int, c_int, c_int]
     ret.k2h_open.restype = c_uint64
     ret.k2h_open.argtypes = [
-        c_char_p, c_bool, c_bool, c_bool, c_int, c_int, c_int, c_int
+        c_char_p,
+        c_bool,
+        c_bool,
+        c_bool,
+        c_int,
+        c_int,
+        c_int,
+        c_int,
     ]
     ret.k2h_open_rw.restype = c_uint64
     ret.k2h_open_rw.argtypes = [c_char_p, c_bool, c_int, c_int, c_int, c_int]
     ret.k2h_open_ro.restype = c_uint64
     ret.k2h_open_ro.argtypes = [c_char_p, c_bool, c_int, c_int, c_int, c_int]
     ret.k2h_open_tempfile.restype = c_uint64
-    ret.k2h_open_tempfile.argtypes = [
-        c_char_p, c_bool, c_int, c_int, c_int, c_int
-    ]
+    ret.k2h_open_tempfile.argtypes = [c_char_p, c_bool, c_int, c_int, c_int, c_int]
 
     # print API
     # bool k2h_print_attr_version(k2h_h handle, FILE* stream)
@@ -449,9 +497,10 @@ def _load_libk2hash():  # noqa: pylint: disable=too-many-statements
     ret.k2h_set_common_attr.argtypes = [
         c_uint64,
         POINTER(c_bool),
-        POINTER(c_bool), c_char_p,
         POINTER(c_bool),
-        POINTER(c_ulong)
+        c_char_p,
+        POINTER(c_bool),
+        POINTER(c_ulong),
     ]
     ret.k2h_set_common_attr.restype = c_bool
 
@@ -468,8 +517,11 @@ def _load_libk2hash():  # noqa: pylint: disable=too-many-statements
     # bool k2h_set_str_value_wa(k2h_h handle, const char* pkey, const char* pval, const char* pass,
     # const time_t* expire)
     ret.k2h_set_str_value_wa.argtypes = [
-        c_uint64, c_char_p, c_char_p, c_char_p,
-        POINTER(c_ulong)
+        c_uint64,
+        c_char_p,
+        c_char_p,
+        c_char_p,
+        POINTER(c_ulong),
     ]
     ret.k2h_set_str_value_wa.restype = c_bool
 
@@ -480,8 +532,14 @@ def _load_libk2hash():  # noqa: pylint: disable=too-many-statements
     # const unsigned char* pprefix, size_t prefixlen, const unsigned char* pparam, size_t paramlen,
     # const time_t* expire)
     ret.k2h_transaction_param_we.argtypes = [
-        c_uint64, c_bool, c_char_p, c_char_p, c_size_t, c_char_p, c_size_t,
-        POINTER(c_ulong)
+        c_uint64,
+        c_bool,
+        c_char_p,
+        c_char_p,
+        c_size_t,
+        c_char_p,
+        c_size_t,
+        POINTER(c_ulong),
     ]
     ret.k2h_transaction_param_we.restype = c_bool
 
@@ -498,28 +556,26 @@ _init_library_handle()
 
 # Gets library handler
 def get_library_handle():
-    """Gets C library handles
-    """
+    """Gets C library handles"""
     return _init_library_handle()
 
 
 # Configures logger using std logging. default puts to stderr in warning.
-def _configure_logger(log_file='sys.stderr', log_level=logging.WARNING):
+def _configure_logger(log_file="sys.stderr", log_level=logging.WARNING):
     LOG.setLevel(log_level)
 
     # 2. formatter
     formatter = logging.Formatter(
-        '%(asctime)-15s %(levelname)s %(name)s:%(lineno)d %(message)s'
+        "%(asctime)-15s %(levelname)s %(name)s:%(lineno)d %(message)s"
     )  # hardcoding
 
     # 3. log_file
     if log_file and isinstance(log_file, str):
-        if log_file != 'sys.stderr':
+        if log_file != "sys.stderr":
             # Add the log message handler to the logger
-            handler = TimedRotatingFileHandler(log_file,
-                                               when='midnight',
-                                               encoding='UTF-8',
-                                               backupCount=31)
+            handler = TimedRotatingFileHandler(
+                log_file, when="midnight", encoding="UTF-8", backupCount=31
+            )
             handler.setFormatter(formatter)
             LOG.addHandler(handler)
             return
@@ -532,8 +588,7 @@ def _configure_logger(log_file='sys.stderr', log_level=logging.WARNING):
 
 # Configures the loglevel.
 def set_log_level(log_level):
-    """Sets the log level
-    """
+    """Sets the log level"""
     LOG.setLevel(log_level)
 
 
@@ -543,9 +598,10 @@ _configure_logger()
 #
 # import k2hash modules
 #
-from k2hash.k2hash import K2hash, K2hashIterator
-from k2hash.queue import Queue
-from k2hash.keyqueue import KeyQueue
+from k2hash.k2hash import K2hash, K2hashIterator  # noqa: pylint:disable=wrong-import-position
+from k2hash.basequeue import BaseQueue  # noqa: pylint:disable=wrong-import-position
+from k2hash.keyqueue import KeyQueue  # noqa: pylint:disable=wrong-import-position
+from k2hash.queue import Queue  # noqa: pylint:disable=wrong-import-position
 
 #
 # Local variables:

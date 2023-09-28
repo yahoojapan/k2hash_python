@@ -11,13 +11,14 @@
 # CREATE:   Tue Feb 08 2022
 # REVISION:
 #
-import unittest
-import k2hash
 import logging
 import time
+import unittest
+
+import k2hash
+
 
 class TestQueue(unittest.TestCase):
-
     def test_Queue_construct(self):
         db = k2hash.K2hash()
         q = k2hash.Queue(db)
@@ -38,7 +39,7 @@ class TestQueue(unittest.TestCase):
         db = k2hash.K2hash()
         q = k2hash.Queue(db)
         self.assertTrue(isinstance(q, k2hash.Queue))
-        obj="v1"
+        obj = "v1"
         self.assertTrue(q.put(obj), True)
         self.assertTrue(q.get(), obj)
         self.assertTrue(q.close(), True)
@@ -48,8 +49,8 @@ class TestQueue(unittest.TestCase):
         db = k2hash.K2hash()
         q = k2hash.Queue(db)
         self.assertTrue(isinstance(q, k2hash.Queue))
-        obj="v1"
-        attrs={"attrname1": "attrval1"}
+        obj = "v1"
+        attrs = {"attrname1": "attrval1"}
         self.assertTrue(q.put(obj, attrs), True)
         self.assertTrue(q.get(), obj)
         self.assertTrue(q.close(), True)
@@ -59,7 +60,7 @@ class TestQueue(unittest.TestCase):
         db = k2hash.K2hash()
         q = k2hash.Queue(db)
         self.assertTrue(isinstance(q, k2hash.Queue))
-        obj="v1"
+        obj = "v1"
         self.assertTrue(q.put(obj), True)
         self.assertTrue(q.qsize() == 1)
         self.assertTrue(q.clear(), True)
@@ -78,7 +79,7 @@ class TestQueue(unittest.TestCase):
         db = k2hash.K2hash()
         q = k2hash.Queue(db)
         self.assertTrue(isinstance(q, k2hash.Queue))
-        obj="v1"
+        obj = "v1"
         self.assertTrue(q.put(obj), True)
         self.assertTrue(q.qsize() == 1)
         self.assertTrue(q.close(), True)
@@ -87,7 +88,7 @@ class TestQueue(unittest.TestCase):
     def test_Queue_element(self):
         db = k2hash.K2hash()
         q = k2hash.Queue(db)
-        obj="v1"
+        obj = "v1"
         self.assertTrue(q.put(obj), True)
         self.assertTrue(q.element(), obj)
         self.assertTrue(q.close(), True)
@@ -97,7 +98,7 @@ class TestQueue(unittest.TestCase):
         db = k2hash.K2hash()
         q = k2hash.Queue(db)
         self.assertTrue(isinstance(q, k2hash.Queue))
-        obj="v1"
+        obj = "v1"
         self.assertTrue(q.put(obj), True)
         self.assertTrue(q.element(1) == "")
         self.assertTrue(q.close(), True)
@@ -123,7 +124,7 @@ class TestQueue(unittest.TestCase):
         db = k2hash.K2hash()
         q = k2hash.Queue(db)
         self.assertTrue(isinstance(q, k2hash.Queue))
-        obj="v1"
+        obj = "v1"
         self.assertTrue(q.put(obj), True)
         self.assertTrue(q.get(), obj)
         self.assertTrue(q.close(), True)
@@ -141,7 +142,7 @@ class TestQueue(unittest.TestCase):
         db = k2hash.K2hash()
         q = k2hash.Queue(db)
         self.assertTrue(isinstance(q, k2hash.Queue))
-        obj="v1"
+        obj = "v1"
         self.assertTrue(q.put(obj), True)
         self.assertTrue(q.qsize() == 1)
         self.assertTrue(q.remove(), True)
@@ -153,7 +154,7 @@ class TestQueue(unittest.TestCase):
         db = k2hash.K2hash()
         q = k2hash.Queue(db)
         self.assertTrue(isinstance(q, k2hash.Queue))
-        obj="v1"
+        obj = "v1"
         self.assertTrue(q.put(obj), True)
         self.assertTrue(q.qsize() == 1)
         self.assertTrue(q.remove(1), True)
@@ -168,7 +169,8 @@ class TestQueue(unittest.TestCase):
         self.assertTrue(q.close(), True)
         db.close()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
 
 #

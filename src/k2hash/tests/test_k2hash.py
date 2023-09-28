@@ -11,14 +11,15 @@
 # CREATE:   Tue Feb 08 2022
 # REVISION:
 #
-import unittest
-import k2hash
-import logging
 import ctypes
+import logging
 import time
+import unittest
+
+import k2hash
+
 
 class TestK2hashIterator(unittest.TestCase):
-
     def test_K2hashIterator_construct(self):
         db = k2hash.K2hash()
         self.assertTrue(isinstance(db, k2hash.K2hash))
@@ -46,13 +47,12 @@ class TestK2hashIterator(unittest.TestCase):
         self.assertTrue(subkey == next(ki))
         db.close()
 
-class TestK2hash(unittest.TestCase):
 
+class TestK2hash(unittest.TestCase):
     def test_K2hash_construct(self):
         db = k2hash.K2hash()
         self.assertTrue(isinstance(db, k2hash.K2hash))
         db.close()
-
 
     def test_K2hash_get_iterator(self):
         db = k2hash.K2hash()
@@ -147,7 +147,6 @@ class TestK2hash(unittest.TestCase):
     def test_K2hash_create(self):
         k2h_file = "test.k2h"
         self.assertTrue(k2hash.K2hash.create(k2h_file), True)
-
 
     def test_K2hash_dump_to_file(self):
         db = k2hash.K2hash()
@@ -281,7 +280,7 @@ class TestK2hash(unittest.TestCase):
         k2h_file = "test.k2h"
         self.assertTrue(db.dump_to_file(k2h_file), val)
         db.close()
-        
+
         db = None
         db = k2hash.K2hash()
         self.assertTrue(isinstance(db, k2hash.K2hash))
@@ -392,12 +391,13 @@ class TestK2hash(unittest.TestCase):
         self.assertTrue(db.set(key, val), True)
         self.assertTrue(db.get(key), val)
         # 1. make the password file for test
-        password_file="password.txt"
+        password_file = "password.txt"
         password = "secretstring"
         import os
-        with open(password_file, 'w') as f:
+
+        with open(password_file, "w") as f:
             print("{}".format(password), file=f)
-            
+
         # 2. call the api
         self.assertTrue(db.set_encryption_password_file(password_file), True)
         db.close()
@@ -470,7 +470,7 @@ class TestK2hash(unittest.TestCase):
         self.assertTrue(k2hash.K2hash.version() == None)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
 
 #
