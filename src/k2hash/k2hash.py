@@ -154,7 +154,7 @@ class K2hash:  # noqa: pylint: disable=too-many-instance-attributes,too-many-pub
             raise RuntimeError("handle should not be K2H_INVALID_HANDLE")
         self._handle = handle
 
-    def __init__(  # noqa: pylint: disable=too-many-branches,too-many-arguments
+    def __init__(  # noqa: pylint: disable=too-many-branches,too-many-arguments,too-many-positional-arguments
         self,
         k2hfile="",
         flag=None,
@@ -233,7 +233,7 @@ class K2hash:  # noqa: pylint: disable=too-many-instance-attributes,too-many-pub
         """returns libc handle"""
         return self._libc
 
-    def set(  # noqa: pylint: disable=too-many-arguments
+    def set(  # noqa: pylint: disable=too-many-arguments,too-many-positional-arguments
         self, key, val, password=None, expire_duration=None, time_unit=TimeUnit.SECONDS
     ):
         """Sets a key/value pair"""
@@ -316,7 +316,7 @@ class K2hash:  # noqa: pylint: disable=too-many-instance-attributes,too-many-pub
             LOG.error("error in k2h_add_attr_crypt_pass")
         return res
 
-    def add_subkey(  # noqa: pylint: disable=too-many-arguments
+    def add_subkey(  # noqa: pylint: disable=too-many-arguments,too-many-positional-arguments
         self,
         key,
         subkey,
@@ -777,7 +777,7 @@ class K2hash:  # noqa: pylint: disable=too-many-instance-attributes,too-many-pub
                 "level should be either SILENT, ERROR, WARN, INFO or DEBUG"
             )
 
-    def set_subkeys(  # noqa: pylint: disable=too-many-branches,too-many-arguments
+    def set_subkeys(  # noqa: pylint: disable=too-many-branches,too-many-arguments,too-many-positional-arguments
         self,
         key,
         subkeys,
