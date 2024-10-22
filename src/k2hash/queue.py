@@ -29,7 +29,7 @@ class Queue(BaseQueue):  # noqa: pylint:disable=too-many-instance-attributes
     Queue class provides methods to handle key/value pairs in k2hash hash database.
     """
 
-    def __init__(  # noqa: pylint: disable=too-many-arguments
+    def __init__(  # noqa: pylint: disable=too-many-arguments,too-many-positional-arguments
         self, k2h, fifo=True, prefix=None, password=None, expire_duration=None
     ):
         """
