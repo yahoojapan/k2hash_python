@@ -1,25 +1,31 @@
 # -*- coding: utf-8 -*-
 #
 # K2hash Python Driver under MIT License
+#
 # Copyright (c) 2022 Yahoo Japan Corporation
+#
 # For the full copyright and license information, please view
 # the license file that was distributed with this source code.
+#
 # AUTHOR:   Hirotaka Wakabayashi
 # CREATE:   Tue Feb 08 2022
 # REVISION:
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: k2hash \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-26 14:11+0900\n"
+"POT-Creation-Date: 2026-02-13 16:41+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../../HISTORY.rst:3
 msgid "History"

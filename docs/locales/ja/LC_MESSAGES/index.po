@@ -16,36 +16,38 @@ msgid ""
 msgstr ""
 "Project-Id-Version: k2hash \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-07 06:11+0000\n"
+"POT-Creation-Date: 2026-02-13 16:41+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.18.0\n"
 
-#: ../../index.rst:9
+#: ../../index.rst:4
 msgid "Contents:"
 msgstr "内容"
 
-#: ../../index.rst:7
+#: ../../index.rst:2
 msgid "Welcome to k2hash's documentation!"
 msgstr "k2hash for Pythonのドキュメントへようこそ！"
 
-#: ../../index.rst:16
+#: ../../index.rst:15
 msgid "Indices and tables"
 msgstr "一覧"
 
-#: ../../index.rst:18
+#: ../../index.rst:17
 msgid ":ref:`genindex`"
 msgstr ""
 
-#: ../../index.rst:19
+#: ../../index.rst:18
 msgid ":ref:`modindex`"
 msgstr ""
 
-#: ../../index.rst:20
+#: ../../index.rst:19
 msgid ":ref:`search`"
 msgstr ""
 

@@ -16,106 +16,107 @@ msgid ""
 msgstr ""
 "Project-Id-Version: k2hash \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-02 16:44+0900\n"
+"POT-Creation-Date: 2026-02-13 16:41+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <antpickax-support@mail.yahoo.co.jp>\n"
-"Language-Team: LANGUAGE <antpickax-support@mail.yahoo.co.jp>\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../../README.rst:3
 msgid "k2hash_python"
 msgstr ""
 
-#: ../../../README.rst:9
+#: ../../../README.rst:23
 msgid "Overview"
 msgstr "概要"
 
-#: ../../../README.rst:11
+#: ../../../README.rst:25
 msgid "k2hash_python is an official python driver for `k2hash`_."
 msgstr "k2hash_pythonは、`k2hash`_ のPython版（公式）です。"
 
-#: ../../../README.rst:17
+#: ../../../README.rst:33
 msgid "Install"
 msgstr "インストール"
 
-#: ../../../README.rst:19
+#: ../../../README.rst:35
 msgid "Firstly you must install the k2hash shared library::"
-msgstr "最初にk2hashの共有ライブラリをインストールしなければなりません。"
+msgstr "最初にk2hashの共有ライブラリをインストールします。"
 
-#: ../../../README.rst:23
+#: ../../../README.rst:39
 msgid "Then, let's install k2hash using pip::"
-msgstr "pipコマンドを使って、k2hashのPythonb版をインストールしましょう。"
+msgstr "次にpipコマンドを使って、k2hashのPythonb版をインストールします。"
 
-#: ../../../README.rst:29
+#: ../../../README.rst:45
 msgid "Usage"
 msgstr "使い方"
 
-#: ../../../README.rst:31
+#: ../../../README.rst:47
 msgid "Try to set a key and get it::"
-msgstr "キーに値をセットして、ゲットしてみましょう。"
+msgstr "キーに値をセットして、ゲットします。"
 
-#: ../../../README.rst:42
+#: ../../../README.rst:58
 msgid "Development"
 msgstr "開発"
 
-#: ../../../README.rst:44
+#: ../../../README.rst:60
 msgid ""
 "Clone this repository and go into the directory, then run the following "
 "command::"
 msgstr "このレポジトリをクローンして、以下のコマンドを打ち込んでください。"
 
-#: ../../../README.rst:51
+#: ../../../README.rst:67
 msgid "Documents"
 msgstr "ドキュメント"
 
-#: ../../../README.rst:53
+#: ../../../README.rst:69
 msgid "Here are documents including other components."
 msgstr "k2hashのPython版以外のコンポーネントのドキュメントはこちらです。"
 
-#: ../../../README.rst:55
+#: ../../../README.rst:71
 msgid "`Document top page`_"
 msgstr "`ドキュメントトップ`_"
 
-#: ../../../README.rst:57
+#: ../../../README.rst:73
 msgid "`About K2HASH`_"
 msgstr "`K2HASHについて`_"
 
-#: ../../../README.rst:59
+#: ../../../README.rst:75
 msgid "`About AntPickax`_"
 msgstr "`AntPickaxについて`_"
 
-#: ../../../README.rst:67
+#: ../../../README.rst:86
 msgid "Packages"
 msgstr "パッケージについて"
 
-#: ../../../README.rst:69
+#: ../../../README.rst:88
 msgid "Here are packages including other components."
-msgstr "この他のコンポーネントのパッケージはこちらです。"
+msgstr "他のコンポーネントのパッケージはこちらです。"
 
-#: ../../../README.rst:71
+#: ../../../README.rst:90
 msgid "`k2hash(python packages)`_"
 msgstr ""
 
-#: ../../../README.rst:77
+#: ../../../README.rst:96
 msgid "License"
 msgstr "ライセンス"
 
-#: ../../../README.rst:79
+#: ../../../README.rst:98
 msgid "MIT License. See the LICENSE file."
 msgstr "MITライセンスです。詳しくは、LICENSEファイルを見てください。"
 
-#: ../../../README.rst:82
+#: ../../../README.rst:101
 msgid "AntPickax"
 msgstr ""
 
-#: ../../../README.rst:84
+#: ../../../README.rst:103
 msgid ""
 "**k2hash_python** is a project by AntPickax_, which is an open source "
 "team in `Yahoo Japan Corporation`_."
 msgstr ""
 "k2hash_pythonは、 AntPickax_ によるプロジェクトの一つです。 AntPickax_ "
 "は、ヤフー株式会社のオープンソース開発チームの一つです。"
-
